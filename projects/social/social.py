@@ -1,3 +1,6 @@
+import random
+from util import Queue
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -29,6 +32,8 @@ class SocialGraph:
         self.friendships[self.last_id] = set()
 
     def populate_graph(self, num_users, avg_friendships):
+        # SEEDING FUNCTION
+        # USERS AND AVG # OF FRIENDSHIPS
         """
         Takes a number of users and an average number of friendships
         as arguments
@@ -45,9 +50,9 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
-
+        for i in range(num_users):
+            self.add_user(f"User {i+1}")
         # Create friendships
-
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
