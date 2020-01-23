@@ -1,4 +1,4 @@
-import random
+import random #to get shuffle
 from util import Queue
 
 class User:
@@ -53,6 +53,29 @@ class SocialGraph:
         for i in range(num_users):
             self.add_user(f"User {i+1}")
         # Create friendships
+        # To create N random friendships, you could create a list with all possible 
+        # friendship combinations, shuffle the list, then grab the first N elements 
+        # from the list. You will need to `import random` to get shuffle.
+        
+        possible_friendships = [] #list of possible friendships
+        
+        #nested loops for all possiblities 
+        for user_id in self.users: #get id of all users
+            for friend_id in range(user_id+1, self.last_id+1): 
+                #wouldn't work without self, why?
+                #data is ordered just loop through and add +1 move forward 1
+                #connection already made no need to go back
+                possible_friendships.append((user_id, friend_id)) 
+                #TypeError: append() takes exactly one argument (2 given) needs two ()
+                #append to empty list above
+        #shuffle the list        
+        random.shuffle(possible_friendships)
+
+        all_friendships = num_users * avg_friendships
+        for i in range(all_friendships // 2):
+            friendship = possible_friendships[i]
+            self.add_friendship(friendship[0], friendship[1])
+
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
