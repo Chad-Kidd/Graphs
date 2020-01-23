@@ -87,12 +87,32 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        q = Queue()  # Instantiate a queue
+
+        q.enqueue([user_id]) #enqueue list of user ids in order to build path
+
+        while q.size() > 0:
+            path = q.dequeue()
+            user = path[-1]
+            print('THIS IS PATH', path)
+            print('THIS IS USER', user)
+
+            if user not in visited: 
+                #search/traverse through and check / add unvisited node
+                visited[user] = path #adds this path/node to dictionary
+                print("VISITED CUE", visited)
+
+                for friend in self.friendships[user]: #each edge
+                    copy_of_path = path.copy() #avoid error
+                    copy_of_path.append(friend)
+                    q.enqueue(copy_of_path)
+
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
+    print("FRIENDSHIPS", sg.friendships)
     connections = sg.get_all_social_paths(1)
-    print(connections)
+    print("CONNECTIONS",connections)
